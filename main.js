@@ -3,6 +3,33 @@ const EMPTY_HEART = '♡'
 const FULL_HEART = '♥'
 
 // Your JavaScript code goes here!
+const modal = document.querySelector("#modal");
+modal.classList.add("hidden");
+
+const click = (event) =>{
+  const isClicked = event.target
+  isClicked.innerTEXT = EMPTY_HEART
+
+  mimicServerCall()
+  .then(resp => {
+    if(isClicked.innerTEXT === EMPTY_HEART){
+      isClicked.innerTEXT = FULL_HEART
+      isClicked.classList.add("activated-heart")
+    } else {
+      isClicked.innerTEXT = EMPTY_HEART
+      isClicked.classList.remove("activated-heart")
+    }
+  })
+
+  .catch(err =>{
+    modal.classList.remove("hidden");
+    modal.querySelector("#modal-message").textContent = err.message;
+    setTimeout(() => {
+      modal.classList.add("hidden");
+    }, 3000);
+  })
+
+}
 
 
 
